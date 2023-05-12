@@ -1,0 +1,4 @@
+<div class="alert alert-dismissible " th:classappend="${alert}" th:if="${alert} != null">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <span th:text="${alertText}"></span>
+</div>
