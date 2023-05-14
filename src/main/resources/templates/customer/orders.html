@@ -1,0 +1,77 @@
+<span th:replace="~{fragments/header}"></span>
+<!-- Navigation-->
+<span th:replace="~{fragments/menuCustomer}" th:with="selectedCountry=${selectedCountry},categories=${categories}"> </span>
+
+<section>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1 class="display-4 fw-bolder" th:text="${title}"></h1>
+                <p class="lead fw-normal  mb-0">List of all your orders in one place.</p>
+
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-4">
+                <span th:replace="~{fragments/alerts}" th:with="alert=${alert},alertText=${alertText}"> </span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- Section-->
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+
+            <table class="table light table-striped">
+                <thead class="font-weight-bold">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="width: 50%">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col" style="text-align: right;">Price(TZS)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order: ${orders}">
+                    <th scope="row" th:text="${order.id}"></th>
+                    <th scope="row" th:text="${order.orderDate}"></th>
+                    <td th:text="${order.products.name}"></td>
+                    <td th:text="${order.products.description}" style="width: 40%"></td>
+                    <td th:text="${order.products.category.name}"></td>
+                    <td th:text="${order.products.price}" style="font-weight: bold; text-align: right"></td>
+
+                    <td width="100px">
+                        <div class="d-grid gap-2">
+                            <form action="/customer/order/delete" method="post">
+                                <input type="hidden" name="orderId" th:value="${order.id}"/>
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M4 7h16"></path>
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                        <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                    </svg>
+                                    <br>
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<span th:replace="~{fragments/footer}"></span>

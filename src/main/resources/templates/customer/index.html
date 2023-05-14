@@ -1,13 +1,14 @@
 <span th:replace="~{fragments/header}"></span>
 <!-- Navigation-->
-<span th:replace="~{fragments/menuHome}" th:with="selectedCategory=${selectedCategory},categories=${categories}"> </span>
+<span th:replace="~{fragments/menuCustomer}" th:with="selectedCountry=${selectedCountry},categories=${categories}"> </span>
 
 <section>
     <div class="container px-4 px-lg-5 my-5">
         <div class="row">
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 <h1 class="display-4 fw-bolder" th:text="${title}"></h1>
-                <p class="lead fw-normal  mb-0">Shop in style, with the best experience.</p>
+                <p class="lead fw-normal  mb-0">All your orders all at one place.</p>
+
             </div>
 
             <div class="col-md-6 col-sm-12 mt-4">
@@ -17,6 +18,7 @@
 
     </div>
 </section>
+
 
 
 <!-- Section-->
@@ -45,17 +47,23 @@
                         th:text="${product.price}"></td>
                     <td width="100px">
                         <div class="d-grid gap-2">
-                            <a class="btn btn-outline-dark" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-                                    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-                                    <path d="M17 17h-11v-14h-2"></path>
-                                    <path d="M6 5l6 .429m7.138 6.573l-.143 1h-13"></path>
-                                    <path d="M15 6h6m-3 -3v6"></path>
-                                </svg><br>
-                                Buy
-                            </a>
+                            <form action="/customer/order" method="post">
+                                <input type="hidden" name="productId" th:value="${product.id}"/>
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-text-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M19 10h-14"></path>
+                                        <path d="M5 6h14"></path>
+                                        <path d="M14 14h-9"></path>
+                                        <path d="M5 18h6"></path>
+                                        <path d="M18 15v6"></path>
+                                        <path d="M15 18h6"></path>
+                                    </svg>
+                                    <br>
+                                    Order
+                                </button>
+                            </form>
+
                         </div>
                     </td>
                 </tr>

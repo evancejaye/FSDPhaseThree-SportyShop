@@ -4,6 +4,7 @@ import com.fsd.sportyshoes.models.Categories;
 import com.fsd.sportyshoes.models.Users;
 import com.fsd.sportyshoes.repositories.CategoriesRepository;
 import com.fsd.sportyshoes.repositories.UsersRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +59,7 @@ public class AuthenticationController {
 
     //list all categories
     @PostMapping("/authenticate")
-    public String loginUser(Model model, @RequestParam String email, @RequestParam String password) {
+    public String loginUser(Model model, HttpSession session, @RequestParam String email, @RequestParam String password) {
         model.addAttribute("categories", categoriesRepository.findAll());
         model.addAttribute("title", "Login");
 
@@ -78,11 +79,40 @@ public class AuthenticationController {
 
         if(user.getPassword().equals(password)){
             model.addAttribute("alert", "alert-success");
-            model.addAttribute("alertText", "Correct credentials.");
+            model.addAttribute("alertText", "Login successfully.");
+            session.setAttribute("user", user);
+            session.setAttribute("userId", user.getEmail());
+            session.setAttribute("userName", user.getName());
+            session.setAttribute("rights", user.getRights());
+            model.addAttribute("title", "Welcome "+user.getName());
+            if(user.getRights().equals("admin")){
+                //go to admin page
+                return "auth/login";
+            }else{
+                //go to customer
+                return "redirect:/customer/";
+            }
+
         }
 
         return "auth/login";
     }
 
+    //logout
+    @GetMapping(path = "/logout")
+    public String logOut(Model model, HttpSession session){
+        //remove the session
+        session.removeAttribute("userId");
+        session.removeAttribute("userName");
+        session.removeAttribute("userRights");
 
+        model.addAttribute("categories", categoriesRepository.findAll());
+        model.addAttribute("title", "Login");
+
+        model.addAttribute("title", "Login");
+        model.addAttribute("alert", "alert-danger");
+        model.addAttribute("alertText", "Session expired, please login to continue.");
+
+        return "auth/login";
+    }
 }
