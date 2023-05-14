@@ -87,7 +87,7 @@ public class AuthenticationController {
             model.addAttribute("title", "Welcome "+user.getName());
             if(user.getRights().equals("admin")){
                 //go to admin page
-                return "auth/login";
+                return "redirect:/admin/";
             }else{
                 //go to customer
                 return "redirect:/customer/";

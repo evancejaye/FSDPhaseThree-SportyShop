@@ -1,0 +1,109 @@
+<span th:replace="~{fragments/header}"></span>
+<!-- Navigation-->
+<span th:replace="~{fragments/menuAdmin}"> </span>
+
+<section>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1 class="display-4 fw-bolder" th:text="${title}"></h1>
+                <p class="lead fw-normal  mb-0">All your orders all at one place.</p>
+                <form action="/admin/products/update" class="row" method="post">
+                    <div class="form-group col-6">
+                        <label class="form-label mt-4">Product name</label>
+                        <input type="hidden" name="id" th:value="${product.id}">
+                        <input type="text" class="form-control" name="name" th:value="${product.name}" placeholder="Enter product name" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label mt-4">Price</label>
+                        <input type="text" class="form-control" name="price" th:value="${product.price}" placeholder="Enter price" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleSelect1" class="form-label mt-4">Category</label>
+                        <select class="form-select" name="categoryId" id="exampleSelect1">
+                            <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleSelect1" class="form-label mt-4">Stock</label>
+                        <input type="text" class="form-control" name="stock" th:value="${product.stock}" placeholder="Enter description" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label mt-4">Description</label>
+                        <input type="text" class="form-control" name="description" th:value="${product.description}" placeholder="Enter description" required>
+                    </div>
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-4">
+                <span th:replace="~{fragments/alerts}" th:with="alert=${alert},alertText=${alertText}"> </span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- Section-->
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+
+            <table class="table light table-striped"id="myTable" >
+                <thead class="font-weight-bold">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="width: 50%">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col" style="text-align: right;">Price(TZS)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product: ${products}">
+                    <th scope="row" th:text="${product.id}"></th>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.category.name}"></td>
+                    <td th:text="${product.stock}"></td>
+                    <td style="text-align: right; font-weight: bold; text-decoration: underline;"
+                        th:text="${product.price}"></td>
+                    <td width="100px">
+                        <div class="d-grid gap-2">
+                            <form action="/admin/products/edit" method="post">
+                                <input type="hidden" name="productId" th:value="${product.id}"/>
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                        <path d="M16 5l3 3"></path>
+                                    </svg>
+                                    <br>
+                                    Edit
+                                </button>
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<span th:replace="~{fragments/footer}"></span>

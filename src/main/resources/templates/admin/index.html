@@ -1,0 +1,78 @@
+<span th:replace="~{fragments/header}"></span>
+<!-- Navigation-->
+<span th:replace="~{fragments/menuAdmin}"> </span>
+
+<section>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1 class="display-4 fw-bolder" th:text="${title}"></h1>
+                <p class="lead fw-normal  mb-0">All your orders all at one place.</p>
+
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-4">
+                <span th:replace="~{fragments/alerts}" th:with="alert=${alert},alertText=${alertText}"> </span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- Section-->
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+
+            <table class="table light table-striped">
+                <thead class="font-weight-bold">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="width: 50%">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col" style="text-align: right;">Price(TZS)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product: ${products}">
+                    <th scope="row" th:text="${product.id}"></th>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.category.name}"></td>
+                    <td style="text-align: right; font-weight: bold; text-decoration: underline;"
+                        th:text="${product.price}"></td>
+                    <td width="100px">
+                        <div class="d-grid gap-2">
+                            <form action="/customer/order" method="post">
+                                <input type="hidden" name="productId" th:value="${product.id}"/>
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-text-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M19 10h-14"></path>
+                                        <path d="M5 6h14"></path>
+                                        <path d="M14 14h-9"></path>
+                                        <path d="M5 18h6"></path>
+                                        <path d="M18 15v6"></path>
+                                        <path d="M15 18h6"></path>
+                                    </svg>
+                                    <br>
+                                    Order
+                                </button>
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<span th:replace="~{fragments/footer}"></span>

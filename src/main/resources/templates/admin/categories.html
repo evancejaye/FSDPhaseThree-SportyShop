@@ -1,0 +1,84 @@
+<span th:replace="~{fragments/header}"></span>
+<!-- Navigation-->
+<span th:replace="~{fragments/menuAdmin}"> </span>
+
+<section>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1 class="display-4 fw-bolder" th:text="${title}"></h1>
+                <p class="lead fw-normal  mb-0">All your orders all at one place.</p>
+
+
+                <form action="/admin/categories/store" method="post">
+                    <div class="form-group">
+                        <label class="form-label mt-4">Category name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter category name" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-4">
+                <span th:replace="~{fragments/alerts}" th:with="alert=${alert},alertText=${alertText}"> </span>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+<!-- Section-->
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+
+
+        <div class="row">
+
+            <table class="table light table-striped" id="myTable" >
+                <thead class="font-weight-bold">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category: ${categories}">
+                    <th scope="row" th:text="${category.id}"></th>
+                    <td th:text="${category.name}"></td>
+
+
+                    <td width="100px">
+                        <div class="d-grid gap-2">
+                            <form action="/admin/categories/delete" method="post">
+                                <input type="hidden" name="id" th:value="${category.id}"/>
+                                <button class="btn btn-outline-dark" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M4 7h16"></path>
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                        <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                    </svg>
+                                    <br>
+                                    Delete
+                                </button>
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<span th:replace="~{fragments/footer}"></span>

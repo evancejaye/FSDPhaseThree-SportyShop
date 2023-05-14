@@ -1,0 +1,56 @@
+<span th:replace="~{fragments/header}"></span>
+<!-- Navigation-->
+<span th:replace="~{fragments/menuAdmin}"> </span>
+
+<section>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1 class="display-4 fw-bolder" th:text="${title}"></h1>
+                <p class="lead fw-normal  mb-0">All your customers all at one place.</p>
+
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-4">
+                <span th:replace="~{fragments/alerts}" th:with="alert=${alert},alertText=${alertText}"> </span>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+<!-- Section-->
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+
+
+        <div class="row">
+
+            <table class="table light table-striped" id="myTable" >
+                <thead class="font-weight-bold">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer: ${customers}">
+                    <th scope="row" th:text="${customer.id}"></th>
+                    <td th:text="${customer.name}"></td>
+                    <td th:text="${customer.email}"></td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<span th:replace="~{fragments/footer}"></span>
